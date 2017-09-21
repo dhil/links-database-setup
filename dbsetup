@@ -1,0 +1,6 @@
+#!/bin/bash
+for f in `ls *.sql`; do
+    dropdb -U links -h localhost ${f%.sql}
+    createdb -O links ${f%.sql};
+done
+for f in `ls *.sql`; do psql -U links -h localhost -d ${f%.sql} < $f; done
